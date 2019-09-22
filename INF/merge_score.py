@@ -35,18 +35,8 @@ print(score1[:96], end="")
 for j in range(96, 412):
 	s1 = ord(score1[j])
 	s2 = ord(score2[j-96])
-	
+
 	list = [int(s1), int(s2)]
 	avgSc = int(round(avg(list)))
 	print(chr(avgSc), end="")
 print(score2[317:429])
-
-
-
-
-
-
-
-
-
-

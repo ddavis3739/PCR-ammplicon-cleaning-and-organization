@@ -1,22 +1,12 @@
 #!/bin/bash
 
-#PBS -N LAO7-clean
-#PBS -q standby
-#PBS -l naccesspolicy=shared
-#PBS -l nodes=1:ppn=20
-#PBS -l walltime=4:00:00
-#PBS -m abe
-#PBS -M davis783@purdue.edu
-
-cd $PBS_O_WORKDIR
-
 # create array with sequences that need to be trimmed
 declare -a cutSeq=('AATGATACGGCGACCACCGAGATCTACAC' 'TCTTTCCCTACACGACGCTC' 'GTGACTGGAGTTCAGACGTG' \
 'CAAGCAGAAGACGGCATACGAGATCGTGAT' 'CAAGCAGAAGACGGCATACGAGATATTGGC' 'CAAGCAGAAGACGGCATACGAGATTACAAG' \
 'TCTTTCCCTACACGACGCTCTTCCGATCT' 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT')
 
-# make 2 files, one with the sequences that were not found 
-# one with the sequences that were found and their line number in the fastq 
+# make 2 files, one with the sequences that were not found
+# one with the sequences that were found and their line number in the fastq
 touch 028898_LA07_cutSeq.txt
 touch 028898_LA07_cutSeq_EMPTY.txt
 
@@ -41,7 +31,7 @@ python score_LA07.py
 
 # collapse score file into one line and save as temporary file
 sed -n "2~4p" score_LA07.txt > tmp.txt
-tr '\n' ' ' < tmp.txt |& tee > tmp.txt 
+tr '\n' ' ' < tmp.txt |& tee > tmp.txt
 
 # run python script for mean/std of all reads
 python totScore_LA07.py
@@ -60,7 +50,7 @@ declare -A locusPrimer
 for ((i=2; i<=${len}; i++))
 do
 	locus=$(sed -n "${i}p" ../locus_seqs.txt | awk '{printf $1}')
-	seq=$(sed -n "${i}p" ../locus_seqs.txt | awk '{printf $2}') 
+	seq=$(sed -n "${i}p" ../locus_seqs.txt | awk '{printf $2}')
 	pos=$(($i - 1))
 	id[$pos]=$locus
 	locusPrimer[$pos]=$seq

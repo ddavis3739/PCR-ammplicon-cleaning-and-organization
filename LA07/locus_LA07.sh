@@ -1,15 +1,5 @@
 #!/bin/bash
 
-#PBS -N INF-clean
-#PBS -q standby
-#PBS -l naccesspolicy=shared
-#PBS -l nodes=1:ppn=20
-#PBS -l walltime=4:00:00
-#PBS -m abe
-#PBS -M davis783@purdue.edu
-
-cd $PBS_O_WORKDIR
-
 set -B
 
 len=$(wc -l < ../locus_seqs.txt)
@@ -21,7 +11,7 @@ declare -A locusPrimer
 for ((i=2; i<=${len}; i++))
 do
 	locus=$(sed -n "${i}p" ../locus_seqs.txt | awk '{printf $1}')
-	seq=$(sed -n "${i}p" ../locus_seqs.txt | awk '{printf $2}') 
+	seq=$(sed -n "${i}p" ../locus_seqs.txt | awk '{printf $2}')
 	pos=$(($i - 1))
 	id[$pos]=$locus
 	locusPrimer[$pos]=$seq

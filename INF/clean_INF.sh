@@ -1,22 +1,12 @@
 #!/bin/bash
 
-#PBS -N INF-clean
-#PBS -q standby
-#PBS -l naccesspolicy=shared
-#PBS -l nodes=1:ppn=20
-#PBS -l walltime=4:00:00
-#PBS -m abe
-#PBS -M davis783@purdue.edu
-
-cd $PBS_O_WORKDIR
-
 # create array with sequences that need to be trimmed
 declare -a cutSeq=('AATGATACGGCGACCACCGAGATCTACAC' 'TCTTTCCCTACACGACGCTC' 'GTGACTGGAGTTCAGACGTG' \
 'CAAGCAGAAGACGGCATACGAGATCGTGAT' 'CAAGCAGAAGACGGCATACGAGATATTGGC' 'CAAGCAGAAGACGGCATACGAGATTACAAG' \
 'TCTTTCCCTACACGACGCTCTTCCGATCT' 'GTGACTGGAGTTCAGACGTGTGCTCTTCCGATCT')
 
-# make 2 files, one with the sequences that were not found 
-# one with the sequences that were found and their line number in the fastq 
+# make 2 files, one with the sequences that were not found
+# one with the sequences that were found and their line number in the fastq
 touch 028900_INF_cutSeq_EMPTY.txt
 touch 028900_INF_cutSeq.txt
 
@@ -27,7 +17,7 @@ do
 		then
 			printf "${i}\nNo Sequences Found\n" >> 028900_INF_cutSeq_EMPTY.txt
 		else
-			printf "${i}\n${out}\n" >> 028900_INF_cutSeq.txt  
+			printf "${i}\n${out}\n" >> 028900_INF_cutSeq.txt
 	fi
 done
 
